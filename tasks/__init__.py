@@ -56,7 +56,7 @@ def _maybe_get_dockerized_command(cmd, run_in_docker):
     if not run_in_docker or _is_running_in_docker():
         return cmd
 
-    return f"docker compose exec -T osomhire /bin/bash -l -c '{cmd}'"
+    return f"docker compose exec -T theeye /bin/bash -l -c '{cmd}'"
 
 
 @task
@@ -97,7 +97,7 @@ def connect(ctx):
     Opens a bash shell on the running container.
     """
     _maybe_bring_up_detached_compose_cluster(ctx, True)
-    os.system('docker compose exec theeye /bin/bash')
+    os.system("docker compose exec theeye /bin/bash")
 
 
 @task
@@ -138,14 +138,14 @@ def pip_compile(ctx, run_in_docker=True):
     """
     _maybe_bring_up_detached_compose_cluster(ctx, run_in_docker)
     requirements_files = [
-        'requirements/production.in',
-        'requirements/development.in',
+        "requirements/production.in",
+        "requirements/development.in",
     ]
 
     for requirements_file in requirements_files:
         ctx.run(
             _maybe_get_dockerized_command(
-                f'pip-compile {requirements_file}', run_in_docker
+                f"pip-compile {requirements_file}", run_in_docker
             )
         )
 
@@ -157,14 +157,14 @@ def pip_sync(ctx, run_in_docker=True):
     """
     _maybe_bring_up_detached_compose_cluster(ctx, run_in_docker)
     requirements_files = [
-        'requirements/production.txt',
-        'requirements/development.txt',
+        "requirements/production.txt",
+        "requirements/development.txt",
     ]
 
     for requirements_file in requirements_files:
         ctx.run(
             _maybe_get_dockerized_command(
-                f'pip-sync {requirements_file}', run_in_docker
+                f"pip-sync {requirements_file}", run_in_docker
             )
         )
 
@@ -174,13 +174,13 @@ def run(ctx, run_in_docker=True):
     """
     Run a UVICorn application server.
     """
-    uvicorn_cmd = ' '.join(
+    uvicorn_cmd = " ".join(
         [
-            'uvicorn the_eye.asgi:application',
-            '--host 0.0.0.0',
-            '--port 6543',
-            '--reload',
-            '--lifespan off',
+            "uvicorn the_eye.asgi:application",
+            "--host 0.0.0.0",
+            "--port 6543",
+            "--reload",
+            "--lifespan off",
         ]
     )
     kill_command = _maybe_get_dockerized_command(
