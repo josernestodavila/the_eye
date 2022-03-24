@@ -1,0 +1,7 @@
+-r production.txt
+black
+django-extensions
+factory_boy
+flake8
+ipython
+pip-tools

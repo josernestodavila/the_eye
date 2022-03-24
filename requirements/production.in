@@ -1,0 +1,8 @@
+django==4.0.*
+djangorestframework==3.13.*
+drf-spectacular==0.21.*
+psycopg2-binary
+python-dotenv
+pytz
+uvicorn[standard]
+
