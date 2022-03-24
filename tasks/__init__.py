@@ -190,3 +190,17 @@ def run(ctx, run_in_docker=True):
     _maybe_bring_up_detached_compose_cluster(ctx, run_in_docker)
     ctx.run(kill_command, warn=True, hide=True)
     ctx.run(_maybe_get_dockerized_command(uvicorn_cmd, run_in_docker))
+
+
+@task
+def shell(ctx, run_in_docker=True):
+    """
+    Launch a python REPL inside the container.
+    """
+    _maybe_bring_up_detached_compose_cluster(ctx, run_in_docker)
+    ctx.run(
+        _maybe_get_dockerized_command(
+            "python manage.py shell_plus",
+            run_in_docker
+        )
+    )
