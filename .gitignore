@@ -1,0 +1,12 @@
+*.py[cod]
+
+.env
+.idea
+.vscode
+
+__pycache__/
+__pypackages__/
+
+the_eye/local_settings.py
+static/
+
