@@ -19,6 +19,7 @@ services:
       - ALLOWED_HOSTS=['*']
       - PYTHONUNBUFFERED=1
       - DJANGO_SETTINGS_MODULE=the_eye.local_settings
+      - DEBUG=${DEBUG}
     depends_on:
       - postgres
     networks:
