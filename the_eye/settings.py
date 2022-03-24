@@ -13,6 +13,8 @@ import ast
 import os
 from pathlib import Path
 
+from django.urls import reverse_lazy
+
 
 ENVIRONMENT = os.environ.get("ENVIRONMENT", "production").lower()
 
@@ -127,7 +129,24 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 
-# Default primary key field type
+# Default primary key fiel:d type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# Django REST Framework Settings
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+
+# DRF Spectacular Settings
+SPECTACULAR_SETTINGS = {
+    'ENUM_ADD_EXPLICIT_BLANK_NULL_CHOICE': False,
+    'TITLE': 'The Eye API',
+    'DESCRIPTION': 'Events web APIs',
+    'DISABLE_ERRORS_AND_WARNINGS': False,
+    'EXCLUDE_PATH': [reverse_lazy('schema'),],
+}
