@@ -1,0 +1,33 @@
+version: "3.9"
+
+services:
+  postgres:
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    image: postgres:12.4
+    networks:
+      - theeye
+    ports:
+      - "5432:5432"
+  theeye:
+    build: .
+    command: bash
+    environment:
+      - ENVIRONMENT=${ENVIRONMENT}
+      - ALLOWED_HOSTS=['*']
+      - PYTHONUNBUFFERED=1
+      - DJANGO_SETTINGS_MODULE=the_eye.local_settings
+    depends_on:
+      - postgres
+    networks:
+      - theeye
+    ports:
+      - "8001:8001"
+    tty: true
+    volumes:
+      - .:/var/task:delegated
+
+networks:
+  theeye:
