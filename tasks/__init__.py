@@ -178,7 +178,7 @@ def run(ctx, run_in_docker=True):
         [
             "uvicorn the_eye.asgi:application",
             "--host 0.0.0.0",
-            "--port 6543",
+            "--port 8001",
             "--reload",
             "--lifespan off",
         ]
