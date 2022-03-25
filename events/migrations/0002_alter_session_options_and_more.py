@@ -8,20 +8,30 @@ from django.utils.timezone import utc
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('events', '0001_initial'),
+        ("events", "0001_initial"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='session',
-            options={'verbose_name': 'Session', 'verbose_name_plural': 'Sessions'},
+            name="session",
+            options={"verbose_name": "Session", "verbose_name_plural": "Sessions"},
         ),
         migrations.AddConstraint(
-            model_name='event',
-            constraint=models.CheckConstraint(check=models.Q(('timestamp__lte', datetime.datetime(2022, 3, 25, 1, 22, 7, 534606, tzinfo=utc))), name='event_timestamp_cannot_be_future_dated'),
+            model_name="event",
+            constraint=models.CheckConstraint(
+                check=models.Q(
+                    (
+                        "timestamp__lte",
+                        datetime.datetime(2022, 3, 25, 1, 22, 7, 534606, tzinfo=utc),
+                    )
+                ),
+                name="event_timestamp_cannot_be_future_dated",
+            ),
         ),
         migrations.AddConstraint(
-            model_name='session',
-            constraint=models.UniqueConstraint(fields=('id', 'application'), name='unique_application_session'),
+            model_name="session",
+            constraint=models.UniqueConstraint(
+                fields=("id", "application"), name="unique_application_session"
+            ),
         ),
     ]

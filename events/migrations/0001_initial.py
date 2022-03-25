@@ -9,53 +9,86 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Application',
+            name="Application",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('password', models.CharField(max_length=128, verbose_name='password')),
-                ('last_login', models.DateTimeField(blank=True, null=True, verbose_name='last login')),
-                ('name', models.CharField(max_length=100, unique=True)),
-                ('is_active', models.BooleanField(default=True)),
-                ('is_admin', models.BooleanField(default=False)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("password", models.CharField(max_length=128, verbose_name="password")),
+                (
+                    "last_login",
+                    models.DateTimeField(
+                        blank=True, null=True, verbose_name="last login"
+                    ),
+                ),
+                ("name", models.CharField(max_length=100, unique=True)),
+                ("is_active", models.BooleanField(default=True)),
+                ("is_admin", models.BooleanField(default=False)),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
         ),
         migrations.CreateModel(
-            name='Session',
+            name="Session",
             fields=[
-                ('id', models.UUIDField(primary_key=True, serialize=False)),
-                ('application', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+                ("id", models.UUIDField(primary_key=True, serialize=False)),
+                (
+                    "application",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='Event',
+            name="Event",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('category', models.CharField(max_length=100)),
-                ('name', models.CharField(max_length=100)),
-                ('data', models.JSONField(default=dict)),
-                ('timestamp', models.DateTimeField()),
-                ('session', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='events.session')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("category", models.CharField(max_length=100)),
+                ("name", models.CharField(max_length=100)),
+                ("data", models.JSONField(default=dict)),
+                ("timestamp", models.DateTimeField()),
+                (
+                    "session",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to="events.session"
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Event',
-                'verbose_name_plural': 'Events',
-                'ordering': ('session', 'timestamp'),
+                "verbose_name": "Event",
+                "verbose_name_plural": "Events",
+                "ordering": ("session", "timestamp"),
             },
         ),
         migrations.AddIndex(
-            model_name='event',
-            index=models.Index(fields=['timestamp'], name='timestamp_index'),
+            model_name="event",
+            index=models.Index(fields=["timestamp"], name="timestamp_index"),
         ),
         migrations.AddIndex(
-            model_name='event',
-            index=models.Index(fields=['session', 'timestamp'], name='session_timestamp_index'),
+            model_name="event",
+            index=models.Index(
+                fields=["session", "timestamp"], name="session_timestamp_index"
+            ),
         ),
     ]
