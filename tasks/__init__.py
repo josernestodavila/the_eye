@@ -4,6 +4,14 @@ import subprocess
 from invoke import task
 
 
+SERVICES = [
+    'celery',
+    'postgres',
+    'rabbitmq',
+    'theeye',
+]
+
+
 def _ensure_docker_network_exists(ctx):
     """
     Ensures default Docker network exists and creates it if needed.
@@ -20,9 +28,9 @@ def _ensure_docker_network_exists(ctx):
 
 def _is_running_in_docker():
     """
-    Determines whether or not we're already in a Docker container. We can do
+    Determines whether we're already in a Docker container. We can do
     this by looking at init cgroup list and seeing if 'docker' is in the
-    output. We'll also look to make sure a particular directoris mounted,
+    output. We'll also look to make sure a particular directories mounted,
     just in case we're n a Docker-in-Docker scenario.
     """
 
@@ -44,7 +52,7 @@ def _maybe_bring_up_detached_compose_cluster(ctx, run_in_docker):
         return
 
     _ensure_docker_network_exists(ctx)
-    ctx.run("docker compose up -d", hide=True)
+    ctx.run(f"docker compose up -d --remove-orphans {' '.join(SERVICES)}", hide=True)
 
 
 def _maybe_get_dockerized_command(cmd, run_in_docker):
@@ -79,8 +87,23 @@ def build(ctx):
     """
     Build the docker container(s) for the project.
     """
+
+    # Terminate all running containers.
+    ctx.run("docker compose kill")
+
+    # Remove the services that require build from scratch every time
+    ctx.run("docker compose rm -f theeye celery")
+
+    # Pull new versions of any remote images that the cluster relies on.
+    ctx.run("docker compose pull")
+
+    # Build any images that we've specified require a build command.
+    ctx.run("docker compose build --pull")
+
     _ensure_docker_network_exists(ctx)
-    ctx.run("docker compose build")
+
+    # Bring up the entire cluster in a detached state
+    _maybe_bring_up_detached_compose_cluster(ctx, run_in_docker=False)
 
 
 @task
@@ -89,6 +112,7 @@ def kill(ctx):
     Kill all the docker containers for the project.
     """
     ctx.run("docker compose kill")
+    ctx.run("docker compose rm -f")
 
 
 @task
@@ -174,6 +198,12 @@ def run(ctx, run_in_docker=True):
     """
     Run a UVICorn application server.
     """
+
+    # Terminate all running containers.
+    ctx.run("docker compose kill")
+
+    ctx.run("docker compose rm -f theeye celery")
+
     uvicorn_cmd = " ".join(
         [
             "uvicorn the_eye.asgi:application",
