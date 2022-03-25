@@ -9,13 +9,13 @@ https://docs.djangoproject.com/en/4.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
-import ast
 import os
 from pathlib import Path
 
 from django.urls import reverse_lazy
 
 
+AUTH_USER_MODEL = 'events.Application'
 ENVIRONMENT = os.environ.get("ENVIRONMENT", "production").lower()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -31,7 +31,7 @@ SECRET_KEY = "django-insecure-o5xj$)1wa9nng@-^eo+w!@z)_cw@u#-1%jdbqg%ajw4v#14*$z
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DEBUG") == "true"
 
-ALLOWED_HOSTS = ast.literal_eval(os.environ.get("ALLOWER_HOST", "[]"))
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "").split(',')
 
 
 # Application definition
@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "events",
     "rest_framework",
     "drf_spectacular",
 ]
