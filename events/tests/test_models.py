@@ -45,7 +45,9 @@ class SessionTestCase(TestCase):
         with self.assertRaises(IntegrityError):
             Session.objects.create(id=session.id, application=self.application)
 
-    def test_create_session_with_duplicated_id_from_another_application_raises_exception(self):
+    def test_create_session_with_duplicated_id_from_another_application_raises_exception(
+        self,
+    ):
 
         session = Session.objects.create(application=self.application)
         client_app = Application.objects.create(name='Another Client')

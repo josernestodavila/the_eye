@@ -229,3 +229,17 @@ def shell(ctx, run_in_docker=True):
     """
     _maybe_bring_up_detached_compose_cluster(ctx, run_in_docker)
     ctx.run(_maybe_get_dockerized_command("python manage.py shell_plus", run_in_docker))
+
+
+@task
+def test(ctx, run_in_docker=True):
+    """
+    Run the test suite for the project.
+    """
+    _maybe_bring_up_detached_compose_cluster(ctx, run_in_docker)
+    ctx.run(
+        _maybe_get_dockerized_command(
+            "DJANGO_SETTINGS_MODULE=the_eye.test_settings python manage.py test events",
+            run_in_docker,
+        )
+    )
