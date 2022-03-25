@@ -5,10 +5,10 @@ from invoke import task
 
 
 SERVICES = [
-    'celery',
-    'postgres',
-    'rabbitmq',
-    'theeye',
+    "celery",
+    "postgres",
+    "rabbitmq",
+    "theeye",
 ]
 
 
@@ -228,9 +228,4 @@ def shell(ctx, run_in_docker=True):
     Launch a python REPL inside the container.
     """
     _maybe_bring_up_detached_compose_cluster(ctx, run_in_docker)
-    ctx.run(
-        _maybe_get_dockerized_command(
-            "python manage.py shell_plus",
-            run_in_docker
-        )
-    )
+    ctx.run(_maybe_get_dockerized_command("python manage.py shell_plus", run_in_docker))

@@ -13,33 +13,37 @@ from .tasks import handle_event
 
 class EventsView(APIView):
 
-    authentication_classes = TokenAuthentication,
-    permission_classes = IsAuthenticated,
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
     serializer_class = EventSerializer
 
     @extend_schema(
         parameters=[
-            OpenApiParameter('session_id', OpenApiTypes.UUID, OpenApiParameter.QUERY),
-            OpenApiParameter('category', OpenApiTypes.STR, OpenApiParameter.QUERY),
-            OpenApiParameter('timestamp_before', OpenApiTypes.DATETIME, OpenApiParameter.QUERY),
-            OpenApiParameter('timestamp_after', OpenApiTypes.DATETIME, OpenApiParameter.QUERY),
+            OpenApiParameter("session_id", OpenApiTypes.UUID, OpenApiParameter.QUERY),
+            OpenApiParameter("category", OpenApiTypes.STR, OpenApiParameter.QUERY),
+            OpenApiParameter(
+                "timestamp_before", OpenApiTypes.DATETIME, OpenApiParameter.QUERY
+            ),
+            OpenApiParameter(
+                "timestamp_after", OpenApiTypes.DATETIME, OpenApiParameter.QUERY
+            ),
         ],
     )
     def get(self, request):
         lookups = {}
         params = request.query_params.copy()
 
-        if session_id := params.get('session_id'):
-            lookups['session_id'] = session_id
+        if session_id := params.get("session_id"):
+            lookups["session_id"] = session_id
 
-        if category := params.get('category'):
-            lookups['category'] = category
+        if category := params.get("category"):
+            lookups["category"] = category
 
-        if before := params.get('timestamp_before'):
-            lookups['timestamp__lt'] = before
+        if before := params.get("timestamp_before"):
+            lookups["timestamp__lt"] = before
 
-        if after := params.get('timestamp_after'):
-            lookups['timestamp__gte'] = after
+        if after := params.get("timestamp_after"):
+            lookups["timestamp__gte"] = after
 
         events = Event.objects.filter(**lookups)
 
@@ -51,8 +55,7 @@ class EventsView(APIView):
         data = request.data.copy()
         application_id = request.user.id
         serializer = self.serializer_class(
-            data=data,
-            context={'application_id': application_id}
+            data=data, context={"application_id": application_id}
         )
 
         if serializer.is_valid():

@@ -9,12 +9,14 @@ from .models import Application
 
 
 class ApplicationCreationForm(forms.ModelForm):
-    password1 = forms.CharField(label='Password', widget=forms.PasswordInput)
-    password2 = forms.CharField(label='Password confirmation', widget=forms.PasswordInput)
+    password1 = forms.CharField(label="Password", widget=forms.PasswordInput)
+    password2 = forms.CharField(
+        label="Password confirmation", widget=forms.PasswordInput
+    )
 
     class Meta:
         model = Application
-        fields = 'name',
+        fields = ("name",)
 
     def clean_password2(self) -> str:
         # Check that the two password entries match
@@ -32,13 +34,13 @@ class ApplicationCreationForm(forms.ModelForm):
             application.save()
         return application
 
-    
+
 class ChangeApplicationForm(forms.ModelForm):
     password = ReadOnlyPasswordHashField()
 
     class Meta:
         model = Application
-        fields = ('name', 'password', 'is_active', 'is_admin')
+        fields = ("name", "password", "is_active", "is_admin")
 
 
 class UserAdmin(BaseUserAdmin):
@@ -49,22 +51,25 @@ class UserAdmin(BaseUserAdmin):
     # The fields to be used in displaying the User model.
     # These override the definitions on the base UserAdmin
     # that reference specific fields on auth.User.
-    list_display = ('name', 'is_admin')
-    list_filter = ('is_admin',)
+    list_display = ("name", "is_admin")
+    list_filter = ("is_admin",)
     fieldsets = (
-        (None, {'fields': ('name', 'password')}),
-        ('Permissions', {'fields': ('is_admin',)}),
+        (None, {"fields": ("name", "password")}),
+        ("Permissions", {"fields": ("is_admin",)}),
     )
     # add_fieldsets is not a standard ModelAdmin attribute. UserAdmin
     # overrides get_fieldsets to use this attribute when creating a user.
     add_fieldsets = (
-        (None, {
-            'classes': ('wide',),
-            'fields': ('name', 'password1', 'password2'),
-        }),
+        (
+            None,
+            {
+                "classes": ("wide",),
+                "fields": ("name", "password1", "password2"),
+            },
+        ),
     )
-    search_fields = ('name',)
-    ordering = ('name',)
+    search_fields = ("name",)
+    ordering = ("name",)
     filter_horizontal = ()
 
 

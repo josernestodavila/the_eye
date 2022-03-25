@@ -6,14 +6,13 @@ from django.contrib.auth.models import (
 
 
 class ApplicationManager(BaseUserManager):
-
     def create_user(self, name: str, password=None):
         """
         Creates and saves an Application with the given name and password.
         """
         if not name:
-            raise ValueError('Application must have a name')
-        
+            raise ValueError("Application must have a name")
+
         application = self.model(name=name)
         application.set_password(password)
         application.save(using=self._db)
@@ -39,7 +38,7 @@ class Application(AbstractBaseUser):
 
     objects = ApplicationManager()
 
-    USERNAME_FIELD = 'name'
+    USERNAME_FIELD = "name"
     REQUIRED_FIELDS = []
 
     def __str__(self) -> str:

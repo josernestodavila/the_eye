@@ -15,7 +15,7 @@ from pathlib import Path
 from django.urls import reverse_lazy
 
 
-AUTH_USER_MODEL = 'events.Application'
+AUTH_USER_MODEL = "events.Application"
 ENVIRONMENT = os.environ.get("ENVIRONMENT", "production").lower()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -31,7 +31,7 @@ SECRET_KEY = "django-insecure-o5xj$)1wa9nng@-^eo+w!@z)_cw@u#-1%jdbqg%ajw4v#14*$z
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DEBUG") == "true"
 
-ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "").split(',')
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "").split(",")
 
 
 # Application definition
@@ -138,29 +138,29 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # Django REST Framework Settings
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.TokenAuthentication',
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.TokenAuthentication",
     ],
-    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
 }
 
 # DRF Spectacular Settings
 SPECTACULAR_SETTINGS = {
-    'ENUM_ADD_EXPLICIT_BLANK_NULL_CHOICE': False,
-    'TITLE': 'The Eye API',
-    'DESCRIPTION': 'Events web APIs',
-    'DISABLE_ERRORS_AND_WARNINGS': False,
-    'EXCLUDE_PATH': [reverse_lazy('schema'), ],
+    "ENUM_ADD_EXPLICIT_BLANK_NULL_CHOICE": False,
+    "TITLE": "The Eye API",
+    "DESCRIPTION": "Events web APIs",
+    "DISABLE_ERRORS_AND_WARNINGS": False,
+    "EXCLUDE_PATH": [
+        reverse_lazy("schema"),
+    ],
 }
 
 # Celery Settings
-CELERY_BROKER_URL = os.environ.get('CELERY_BROKER_URL')
-CELERY_ACCEPT_CONTENT = ['application/json']
-CELERY_RESULT_SERIALIZER = 'json'
-CELERY_TASK_SERIALIZER = 'json'
+CELERY_BROKER_URL = os.environ.get("CELERY_BROKER_URL")
+CELERY_ACCEPT_CONTENT = ["application/json"]
+CELERY_RESULT_SERIALIZER = "json"
+CELERY_TASK_SERIALIZER = "json"
 CELERY_TIMEZONE = TIME_ZONE
 CELERY_SEND_EVENTS = True
 
-CELERY_IMPORTS = (
-    'events.tasks',
-)
+CELERY_IMPORTS = ("events.tasks",)
