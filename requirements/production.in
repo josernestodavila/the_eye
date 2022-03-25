@@ -1,4 +1,6 @@
+celery
 django==4.0.*
+django-cors-headers
 djangorestframework==3.13.*
 drf-spectacular==0.21.*
 psycopg2-binary

@@ -4,12 +4,14 @@
 #
 #    pip-compile requirements/development.in
 #
+amqp==5.1.0
+    # via
+    #   -r requirements/production.txt
+    #   kombu
 anyio==3.5.0
     # via
     #   -r requirements/production.txt
     #   watchgod
-appnope==0.1.2
-    # via ipython
 asgiref==3.5.0
     # via
     #   -r requirements/production.txt
@@ -23,14 +25,36 @@ attrs==21.4.0
     #   jsonschema
 backcall==0.2.0
     # via ipython
+billiard==3.6.4.0
+    # via
+    #   -r requirements/production.txt
+    #   celery
 black==22.1.0
     # via -r requirements/development.in
+celery==5.2.3
+    # via -r requirements/production.txt
 click==8.0.4
     # via
     #   -r requirements/production.txt
     #   black
+    #   celery
+    #   click-didyoumean
+    #   click-plugins
+    #   click-repl
     #   pip-tools
     #   uvicorn
+click-didyoumean==0.3.0
+    # via
+    #   -r requirements/production.txt
+    #   celery
+click-plugins==1.1.1
+    # via
+    #   -r requirements/production.txt
+    #   celery
+click-repl==0.2.0
+    # via
+    #   -r requirements/production.txt
+    #   celery
 decorator==5.1.1
     # via ipython
 django==4.0.3
@@ -79,6 +103,10 @@ jsonschema==4.4.0
     # via
     #   -r requirements/production.txt
     #   drf-spectacular
+kombu==5.2.4
+    # via
+    #   -r requirements/production.txt
+    #   celery
 matplotlib-inline==0.1.3
     # via ipython
 mccabe==0.6.1
@@ -100,7 +128,10 @@ pip-tools==6.5.1
 platformdirs==2.5.1
     # via black
 prompt-toolkit==3.0.28
-    # via ipython
+    # via
+    #   -r requirements/production.txt
+    #   click-repl
+    #   ipython
 psycopg2-binary==2.9.3
     # via -r requirements/production.txt
 ptyprocess==0.7.0
@@ -126,6 +157,7 @@ python-dotenv==0.19.2
 pytz==2022.1
     # via
     #   -r requirements/production.txt
+    #   celery
     #   djangorestframework
 pyyaml==6.0
     # via
@@ -134,7 +166,9 @@ pyyaml==6.0
     #   uvicorn
 six==1.16.0
     # via
+    #   -r requirements/production.txt
     #   asttokens
+    #   click-repl
     #   python-dateutil
 sniffio==1.2.0
     # via
@@ -164,12 +198,20 @@ uvloop==0.16.0
     # via
     #   -r requirements/production.txt
     #   uvicorn
+vine==5.0.0
+    # via
+    #   -r requirements/production.txt
+    #   amqp
+    #   celery
+    #   kombu
 watchgod==0.8.1
     # via
     #   -r requirements/production.txt
     #   uvicorn
 wcwidth==0.2.5
-    # via prompt-toolkit
+    # via
+    #   -r requirements/production.txt
+    #   prompt-toolkit
 websockets==10.2
     # via
     #   -r requirements/production.txt

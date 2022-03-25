@@ -4,6 +4,8 @@
 #
 #    pip-compile requirements/production.in
 #
+amqp==5.1.0
+    # via kombu
 anyio==3.5.0
     # via watchgod
 asgiref==3.5.0
@@ -12,8 +14,23 @@ asgiref==3.5.0
     #   uvicorn
 attrs==21.4.0
     # via jsonschema
+billiard==3.6.4.0
+    # via celery
+celery==5.2.3
+    # via -r requirements/production.in
 click==8.0.4
-    # via uvicorn
+    # via
+    #   celery
+    #   click-didyoumean
+    #   click-plugins
+    #   click-repl
+    #   uvicorn
+click-didyoumean==0.3.0
+    # via celery
+click-plugins==1.1.1
+    # via celery
+click-repl==0.2.0
+    # via celery
 django==4.0.3
     # via
     #   -r requirements/production.in
@@ -35,6 +52,10 @@ inflection==0.5.1
     # via drf-spectacular
 jsonschema==4.4.0
     # via drf-spectacular
+kombu==5.2.4
+    # via celery
+prompt-toolkit==3.0.28
+    # via click-repl
 psycopg2-binary==2.9.3
     # via -r requirements/production.in
 pyrsistent==0.18.1
@@ -46,11 +67,14 @@ python-dotenv==0.19.2
 pytz==2022.1
     # via
     #   -r requirements/production.in
+    #   celery
     #   djangorestframework
 pyyaml==6.0
     # via
     #   drf-spectacular
     #   uvicorn
+six==1.16.0
+    # via click-repl
 sniffio==1.2.0
     # via anyio
 sqlparse==0.4.2
@@ -61,7 +85,17 @@ uvicorn[standard]==0.17.6
     # via -r requirements/production.in
 uvloop==0.16.0
     # via uvicorn
+vine==5.0.0
+    # via
+    #   amqp
+    #   celery
+    #   kombu
 watchgod==0.8.1
     # via uvicorn
+wcwidth==0.2.5
+    # via prompt-toolkit
 websockets==10.2
     # via uvicorn
+
+# The following packages are considered to be unsafe in a requirements file:
+# setuptools

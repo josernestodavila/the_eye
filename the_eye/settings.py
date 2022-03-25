@@ -131,7 +131,7 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 
-# Default primary key fiel:d type
+# Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
@@ -150,5 +150,17 @@ SPECTACULAR_SETTINGS = {
     'TITLE': 'The Eye API',
     'DESCRIPTION': 'Events web APIs',
     'DISABLE_ERRORS_AND_WARNINGS': False,
-    'EXCLUDE_PATH': [reverse_lazy('schema'),],
+    'EXCLUDE_PATH': [reverse_lazy('schema'), ],
 }
+
+# Celery Settings
+CELERY_BROKER_URL = os.environ.get('CELERY_BROKER_URL')
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_TIMEZONE = TIME_ZONE
+CELERY_SEND_EVENTS = True
+
+CELERY_IMPORTS = (
+    'events.tasks',
+)
