@@ -6,7 +6,11 @@ from events.models import Event, Session
 
 class EventSerializer(serializers.ModelSerializer):
 
-    session_id = serializers.UUIDField()
+    session_id = serializers.UUIDField(required=True)
+    category = serializers.CharField(required=True)
+    name = serializers.CharField(required=True)
+    data = serializers.JSONField(required=True)
+    timestamp = serializers.DateTimeField(required=True)
 
     class Meta:
         model = Event

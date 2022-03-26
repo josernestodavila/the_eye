@@ -3,6 +3,7 @@ from .settings import (
     DATABASES,
     INSTALLED_APPS,
     MIDDLEWARE,
+    ROOT_URLCONF,
     TEMPLATES,
     TIME_ZONE,
     USE_TZ,
