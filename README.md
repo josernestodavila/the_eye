@@ -79,6 +79,7 @@ POSTGRES_USER=postgres
 POSTGRES_PASSWORD=postgres
 RABBITMQ_DEFAULT_USER=rabbituser
 RABBITMQ_DEFAULT_PASS=rabbitpass
+SECRET_KEY="django-insecure-o5xj$)1wa9nng@-^eo+w!@z)_cw@u#-1%jdbqg%ajw4v#14*$z"
 ```
 
 To build the Docker containers used by "The Eye" run: `invoke build`, building the docker containers

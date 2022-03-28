@@ -22,6 +22,7 @@ services:
       DEBUG: ${DEBUG}
       ENVIRONMENT: ${ENVIRONMENT}
       PYTHONUNBUFFERED: 1
+      SECRET_KEY: ${SECRET_KEY}
     depends_on:
       - postgres
     networks:
