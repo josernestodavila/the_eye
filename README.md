@@ -93,7 +93,8 @@ INFO:     Started server process [28]
 
 ```
 
-An API web client is available at http://localhost:8001/.
+An API web client is available at http://localhost:8001/.<img width="1677" alt="Screen Shot 2022-03-28 at 11 37 28 AM" src="https://user-images.githubusercontent.com/39853/160456582-a5c3e8ae-b673-40ec-8f16-a924a053f0b4.png">
+
 
 ### Running the tests suite 
 To run the test suite you only have to run `invoke test`.
