@@ -22,18 +22,6 @@ class EventSerializer(serializers.ModelSerializer):
             "timestamp",
         )
 
-    def validate_session_id(self, session_id):
-        session = Session.objects.filter(
-            id=session_id,
-        ).first()
-
-        if not session:
-            Session.objects.create(
-                id=session_id, application_id=self.context.get("application_id")
-            )
-
-        return session_id
-
     def validate_timestamp(self, timestamp):
         if timestamp > timezone.localtime():
             raise serializers.ValidationError(
@@ -41,3 +29,16 @@ class EventSerializer(serializers.ModelSerializer):
             )
 
         return timestamp
+
+    def create(self, validated_data):
+        session = Session.objects.filter(
+            id=validated_data["session_id"],
+        ).first()
+
+        if not session:
+            Session.objects.create(
+                id=validated_data['session_id'],
+                application_id=self.context.get("application_id")
+            )
+
+        return Event.objects.create(**validated_data)

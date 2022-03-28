@@ -40,6 +40,8 @@ class EventSerializerTestCase(TestCase):
         )
 
         self.assertTrue(serializer.is_valid())
+        serializer.save()
+
         self.assertTrue(Session.objects.exists())
 
     def test_serializer_does_not_create_session_if_it_exists(self):
