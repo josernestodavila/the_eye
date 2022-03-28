@@ -138,4 +138,5 @@ incoming payload and returning errors back to the clients in case such are found
 the serializer can raise a validation error without waiting to hit the database.
 
 ### Pending Improvements
-- Add more tests for the `EventView` class, specifically for the `get()` method. 
+- Add more tests for the `EventView` class, specifically for the `get()` method.
+- Add a serializer for the `EventSerializer.data` field.
