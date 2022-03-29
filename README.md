@@ -48,10 +48,12 @@ The events can have the following shape:
 development environment first create a Python virtual environment with:
 
 ### TL;DR
+Assuming that you use [pyenv](https://github.com/pyenv/pyenv), and you have pyenv installed: 
+
 ```zsh
 # Setup a Python virtualenv
 > pyenv install 3.10.2
-> pyenv 3.10.2 theeye
+> pyenv virtualenv 3.10.2 theeye
 > pyenv activate theeye
 > pip install invoke pyyaml requests
 
